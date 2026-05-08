@@ -3,22 +3,20 @@ using UnityEngine;
 
 public class InitialTransition : ApplicationStateTransitionMonoBase
 {
-    [Tooltip("Reference to IApplicationStateManager")]
-    [SerializeField] private Object applicationStateManagerObject = null;
+    [Tooltip("Global services to be registered on application start.\n" +
+        "Order of registration is determined by order in the array.")]
+    [SerializeField] private ServiceControllerBase[] globalServicesArray;
 
-    //TO DO Register all global services (Scene, Settings, Save, Audio, Input managers)
-
-    private void OnValidate()
-    {
-        if (applicationStateManagerObject != null && !(applicationStateManagerObject is IApplicationStateManager))
-            applicationStateManagerObject = null;
-    }
+    [SerializeField] private string splashScreenSceneName = "SplashScreenScene";
 
     protected override List<IApplicationStateTransitionAction> BuildActionList()
     {
         List<IApplicationStateTransitionAction> actions = new List<IApplicationStateTransitionAction>();
 
-        actions.Add(new RegisterServiceTransitionActionT<IApplicationStateManager>(applicationStateManagerObject as IApplicationStateManager));
+        foreach (ServiceControllerBase serviceController in globalServicesArray)
+            actions.Add(new ServiceControllerRegisterTransitionAction(serviceController));
+
+        actions.Add(new LoadSceneAsyncTransitionAction(splashScreenSceneName));
 
         return actions;
     }
