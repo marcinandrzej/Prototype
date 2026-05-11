@@ -1,6 +1,6 @@
 ﻿using System.Collections;
 
-public class UnregisterServiceTransitionActionT<ServiceInterfaceT> : IApplicationStateTransitionAction where ServiceInterfaceT : IService
+public class UnregisterServiceTransitionActionGeneric<ServiceInterfaceT> : IApplicationStateTransitionAction where ServiceInterfaceT : IService
 {
     public IEnumerator Execute()
     {

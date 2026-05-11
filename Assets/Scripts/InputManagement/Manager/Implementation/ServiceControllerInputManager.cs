@@ -1,4 +1,4 @@
-public class ServiceControllerInputManager : ServiceControllerTBase<IInputManager, InputManager>
+public class ServiceControllerInputManager : ServiceControllerGenericBase<IInputManager, InputManager>
 {
 
 }

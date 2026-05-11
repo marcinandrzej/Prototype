@@ -1,4 +1,4 @@
-﻿public class ServiceControllerSceneManager : ServiceControllerTBase<ISceneManager, SceneManager>
+﻿public class ServiceControllerSceneManager : ServiceControllerGenericBase<ISceneManager, SceneManager>
 {
 
 }

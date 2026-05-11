@@ -1,4 +1,4 @@
-public class ServiceControllerApplicationManager : ServiceControllerTBase<IApplicationStateManager, ApplicationStateManager>
+public class ServiceControllerApplicationManager : ServiceControllerGenericBase<IApplicationStateManager, ApplicationStateManager>
 {
 
 }

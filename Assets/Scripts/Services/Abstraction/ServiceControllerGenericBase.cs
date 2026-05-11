@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-public class ServiceControllerTBase<ServiceInterfaceT, ServiceClassT> : ServiceControllerBase where ServiceClassT : ServiceInterfaceT where ServiceInterfaceT : IService
+public class ServiceControllerGenericBase<ServiceInterfaceT, ServiceClassT> : ServiceControllerBase where ServiceClassT : ServiceInterfaceT where ServiceInterfaceT : IService
 {
     [SerializeField] private ServiceClassT service;
 

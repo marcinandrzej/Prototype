@@ -1,10 +1,10 @@
 ﻿using System.Collections;
 
-public class RegisterServiceTransitionActionT<ServiceInterfaceT> : IApplicationStateTransitionAction where ServiceInterfaceT : IService
+public class RegisterServiceTransitionActionGeneric<ServiceInterfaceT> : IApplicationStateTransitionAction where ServiceInterfaceT : IService
 {
     private ServiceInterfaceT _service;
 
-    public RegisterServiceTransitionActionT(ServiceInterfaceT service) 
+    public RegisterServiceTransitionActionGeneric(ServiceInterfaceT service) 
     {
         _service = service;
     }
