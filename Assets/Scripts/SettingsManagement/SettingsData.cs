@@ -4,4 +4,5 @@ using System;
 public class SettingsData
 {
     //TO DO Settings
+    public int temp;
 }

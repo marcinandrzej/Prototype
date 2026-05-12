@@ -1,51 +1,62 @@
-using System.Collections;
 using UnityEngine;
 
-public class SettingsManager : MonoBehaviour, ISettingsManager
+public class SettingsManager : MonoBehaviour, ISettingsManagerGeneric<SettingsData>
 {
     [SerializeField] private string settingsFileName = "Settings";
 
     private SettingsData _settingsData;
 
-    public void LoadSettings()
+    public SettingsData Settings => _settingsData;
+
+    public void SetDefaultSettings() => _settingsData = new SettingsData();
+
+    public EFileOperationResult LoadSettings()
     {
         ISerializer serializer = ServiceManager.Instance.Get<ISerializer>();
 
         if (!serializer.FileExists(Application.persistentDataPath, settingsFileName))
-            _settingsData = new SettingsData();
+        {
+            return EFileOperationResult.FileNotExists;
+        }
         else
+        {
             _settingsData = serializer.DeserializeDataFromFile<SettingsData>(Application.persistentDataPath, settingsFileName);
+
+            return EFileOperationResult.Success;
+        }
     }
 
-    public IEnumerator LoadSettingsAsync()
+    public async Awaitable<EFileOperationResult> LoadSettingsAsync()
     {
         ISerializer serializer = ServiceManager.Instance.Get<ISerializer>();
 
         if (!serializer.FileExists(Application.persistentDataPath, settingsFileName))
         {
-            _settingsData = new SettingsData();
+            return EFileOperationResult.FileNotExists;
         }
         else
         {
-            Awaitable<SettingsData> asyncOperation = serializer.DeserializeDataFromFileAsync<SettingsData>(Application.persistentDataPath, settingsFileName);
+            _settingsData =  await serializer.DeserializeDataFromFileAsync<SettingsData>(Application.persistentDataPath, settingsFileName);
 
-            yield return asyncOperation;
-
-            _settingsData = asyncOperation.GetAwaiter().GetResult();
+            return EFileOperationResult.Success;
         }
     }
 
-    public void SaveSettings()
+    public EFileOperationResult SaveSettings()
     {
         ISerializer serializer = ServiceManager.Instance.Get<ISerializer>();
         serializer.SerializeDataToFile<SettingsData>(Application.persistentDataPath, settingsFileName, _settingsData);
+
+        return EFileOperationResult.Success;
     }
 
-    public IEnumerator SaveSettingsAsync()
+    public async Awaitable<EFileOperationResult> SaveSettingsAsync()
     {
         ISerializer serializer = ServiceManager.Instance.Get<ISerializer>();
         Awaitable asyncOperation = serializer.SerializeDataToFileAsync<SettingsData>(Application.persistentDataPath, settingsFileName, _settingsData);
 
-        yield return asyncOperation;
+        await asyncOperation;
+
+        return EFileOperationResult.Success;
     }
 }

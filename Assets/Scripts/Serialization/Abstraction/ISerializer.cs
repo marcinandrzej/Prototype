@@ -1,8 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public interface ISerializer : IService
 {
     public bool FileExists(string folderPath, string fileName);
+
+    public void DeleteFile(string folderPath, string fileName);
 
     public void SerializeDataToFile<DataT>(string folderPath, string fileName, DataT data);
 
@@ -11,4 +14,8 @@ public interface ISerializer : IService
     public Awaitable SerializeDataToFileAsync<DataT>(string folderPath, string fileName, DataT data);
 
     public Awaitable<DataT> DeserializeDataFromFileAsync<DataT>(string folderPath, string fileName);
+
+    public List<DataT> DeserializeDataFromDirectory<DataT>(string folderPath);
+
+    public Awaitable<List<DataT>> DeserializeDataFromDirectoryAsync<DataT>(string folderPath);
 }

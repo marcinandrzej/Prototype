@@ -1,4 +1,4 @@
-﻿public class ServiceControllerSettingsManager : ServiceControllerGenericBase<ISettingsManager, SettingsManager>
+﻿public class ServiceControllerSettingsManager : ServiceControllerGenericBase<ISettingsManagerGeneric<SettingsData>, SettingsManager>
 {
 
 }
