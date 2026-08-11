@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class InputManager : MonoBehaviour, IInputManager
-{
+{  
     private EInputContext _activeContext = EInputContext.Inactive;
     private List<IInputController> _activeControllers = new List<IInputController>();
 

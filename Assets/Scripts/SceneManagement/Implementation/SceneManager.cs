@@ -9,7 +9,7 @@ public class SceneManager : MonoBehaviour, ISceneManager
     {
         AsyncOperation loadingOperation = UnitySceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
 
-        yield return new WaitUntil(() => loadingOperation == null || loadingOperation.progress == 1);
+        yield return new WaitUntil(() => loadingOperation == null || loadingOperation.progress >= 1);
     }
 
     public IEnumerator UnloadSceneAsync(string sceneName)

@@ -45,4 +45,11 @@ public class ServiceManager : MonoBehaviour
         
         return default;
     }
+
+    public bool IsServiceRegistered<ServiceInterfaceT>() where ServiceInterfaceT : IService
+    {
+        Type type = typeof(ServiceInterfaceT);
+
+        return _services.TryGetValue(type, out var service);
+    }
 }

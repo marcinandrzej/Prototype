@@ -17,20 +17,17 @@ public class InitialTransition : ApplicationStateTransitionMonoBase
         foreach (ServiceControllerBase serviceController in globalServicesArray)
             actions.Add(new ServiceControllerRegisterTransitionAction(serviceController));
 
-        //Load settings file or create new default one
-        actions.Add(new LoadSettingsTransitionActionGeneric<SettingsData>());
-
         //Block input
         actions.Add(new ChangeInputContextTransitionAction(EInputContext.Inactive));
-        
-        //Load splash screen scene
-        actions.Add(new LoadSceneAsyncTransitionAction(splashScreenSceneName));
+
+        //Load settings file or create new default one
+        actions.Add(new LoadSettingsTransitionActionGeneric<SettingsData>());
 
         //Load save files headers
         actions.Add(new LoadSaveFilesHeadersTransitionActionGeneric<HeaderData, GameData>());
 
-        //Unlock input
-        actions.Add(new ChangeInputContextTransitionAction(EInputContext.SplashScreen));
+        //Load splash screen scene
+        actions.Add(new LoadSceneAsyncTransitionAction(splashScreenSceneName));     
 
         return actions;
     }
