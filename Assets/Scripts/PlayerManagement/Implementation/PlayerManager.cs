@@ -6,11 +6,11 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 {
     [SerializeField] private PlayerInputManager playerInputManager;
 
-    private List<PlayerInput> _players = new List<PlayerInput>();
+    private List<PlayerInputController> _players = new List<PlayerInputController>();
 
-    public PlayerInput FirstPlayer => _players[0];
+    public PlayerInputController FirstPlayer => _players[0];
 
-    public List<PlayerInput> Players => _players;
+    public List<PlayerInputController> Players => _players;
     
     private void OnEnable()
     {
@@ -28,7 +28,7 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
 
     public void DisablePlayerJoining() => playerInputManager.DisableJoining();
 
-    public bool IsFirstPlayer(PlayerInput player) 
+    public bool IsFirstPlayer(PlayerInputController player) 
     {
         if (!_players.Contains(player))
             return false;
@@ -38,15 +38,19 @@ public class PlayerManager : MonoBehaviour, IPlayerManager
         return playerIndex == 0;
     }
 
-    private void PlayerInputManager_onPlayerJoined(PlayerInput player)
+    private void PlayerInputManager_onPlayerJoined(PlayerInput playerInput)
     {
-        if(!_players.Contains(player))
+        PlayerInputController player = playerInput.GetComponent<PlayerInputController>();
+
+        if(player != null && !_players.Contains(player))
             _players.Add(player);
     }
 
-    private void PlayerInputManager_onPlayerLeft(PlayerInput player)
+    private void PlayerInputManager_onPlayerLeft(PlayerInput playerInput)
     {
-        if (_players.Contains(player))
+        PlayerInputController player = playerInput.GetComponent<PlayerInputController>();
+
+        if (player != null && _players.Contains(player))
             _players.Remove(player);
     }
 }

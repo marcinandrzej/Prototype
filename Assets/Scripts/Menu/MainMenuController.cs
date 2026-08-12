@@ -13,7 +13,8 @@ public class MainMenuController : MonoBehaviour
 
         //Spawn Main Menu Input Controller
         // TO DO
-
+        var playerManager = ServiceManager.Instance.Get<IPlayerManager>();
+        playerManager.FirstPlayer.RegisterInputContext(EInputContext.MainMenu, this);
         //Play Enter Animation
         //TO DO
 

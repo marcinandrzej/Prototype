@@ -17,9 +17,6 @@ public class InitialTransition : ApplicationStateTransitionMonoBase
         foreach (ServiceControllerBase serviceController in globalServicesArray)
             actions.Add(new ServiceControllerRegisterTransitionAction(serviceController));
 
-        //Block input
-        actions.Add(new ChangeInputContextTransitionAction(EInputContext.Inactive));
-
         //Load settings file or create new default one
         actions.Add(new LoadSettingsTransitionActionGeneric<SettingsData>());
 

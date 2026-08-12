@@ -1,11 +1,10 @@
 using System.Collections.Generic;
-using UnityEngine.InputSystem;
 
 public interface IPlayerManager : IService
 {
-    public PlayerInput FirstPlayer { get; }
+    public PlayerInputController FirstPlayer { get; }
 
-    public List<PlayerInput> Players { get; }
+    public List<PlayerInputController> Players { get; }
 
     public void EnablePlayerJoining();
     
